@@ -1,0 +1,29 @@
+{{#if Valid}}
+{{>headerCL}}
+{{else}}
+{{>headerSL}}
+{{/if}}
+<div class="row container">
+  <h1>Carrinho</h1>
+  <div class="controllers">
+  <a href="/client/entrega/" class="btn blue">Avançar</a>
+  <h3>Total</h3>
+  </div>
+  <div class="col s12">
+    <table>
+      {{#each cart}}
+      <tr>
+        <td>{{name}}</td>
+        <td>{{pao}}</td>
+        <td id="val">R$ {{value}}</td>
+        <td id="qt">{{qtd}}</td>
+        <td>
+          <a href="" data-name="{{name}}" data-op="up" data-val="{{valUnit}}" data-qt="{{qtd}}" data-pao="{{pao}}" class="btn-floating blue btnMais">+</a>
+          <a href="" data-name="{{name}}" data-op="down" data-val="{{valUnit}}" data-qt="{{qtd}}" data-pao="{{pao}}" class="btn-floating red btnMenos">-</a>
+        </td>
+      </tr>
+      {{/each}}
+    </table>
+  </div>
+</div>
+<script src="/js/mudaQtd.js"></script>

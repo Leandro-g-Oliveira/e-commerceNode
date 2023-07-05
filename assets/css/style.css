@@ -1,0 +1,50 @@
+.modal{
+  top:0;
+  bottom:0;
+}
+a>p{
+  text-decoration: none;
+}
+.lancheUniq{
+  padding:5px;
+  border-radius:10px;
+  margin-top: 5px;
+}
+.modalTitle{
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+}
+img{
+  width:200px;
+  height:200px;
+}
+.tabelaProd{
+  padding:10px;
+  margin-top:10px;
+}
+.qtdArea{
+  display:flex;
+}
+.qt{
+  padding:10px;
+  margin-bottom:15px;
+  font-weight: bold;
+}
+.valueLanche{
+  margin-right:30px;
+}
+.btn-cart{
+  margin:5px;
+}
+.addCart{
+  margin-top:10px;
+}
+.controllers{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+tr{
+  outline:none;
+}

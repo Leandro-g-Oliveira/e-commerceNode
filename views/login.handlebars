@@ -1,0 +1,77 @@
+{{#if Valid}}
+{{>headerCL}}
+{{else}}
+{{>headerSL}}
+{{/if}}
+
+<div class="container" style="margin-top:10px;">
+  <div class="row">
+    <div class="col s12 m6">
+      <a href="#modal1" class="blue darken-1 white-text btn-flat waves-effect offset-s2 modal-trigger">Cliente</a>
+      <a href="#modal2" class="blue darken-1 white-text btn-flat waves-effect offset-s2 modal-trigger">Admin</a>
+    </div>
+    {{#each user}}
+    <p>{{nome}}</p>
+    <p>{{email}}</p>
+    <p>{{endereco}}</p>
+    <p>{{bairro}}</p>
+    <p>{{cidade}}</p>
+    {{/each}}
+    {{#each erro}}
+    <p class="red-text">{{text}}</p>
+    {{/each}}
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>Entrar-Cliente</h4>
+      </div>
+      <div class="modal-footer">
+        <form method="post" action="/client/loginCli">
+          <fieldset><legend><span>Cliente</span></legend>
+          <div class="input-field">
+            <input type="email" name="email" id="email" required>
+            <label for="email">email</label>
+          </div>
+          <div class="input-field">
+            <input type="password" name="passwd" id="password" required>
+            <label for="password">senha</label>
+          </div>
+          </fieldset>
+          <div class="botoes push-s2">
+            <a class="modal-close waves-effect waves-red btn-flat">cancelar</a >
+            <button type="submit" class="waves-effect waves-green btn">entrar</button>
+          </div>
+          <a href="/client/cadCli">ainda não cadastrado?</a>
+        </form>
+      </div>
+    </div><!-- fim modal -->
+    
+    
+    
+    
+    
+    
+    <div id="modal2" class="modal">
+      <div class="modal-content">
+        <h4>Entrar-Admin</h4>
+      </div>
+      <div class="modal-footer">
+        <form method="post" action="/admin/loginAdmin">
+          <fieldset><legend><span>Admin</span></legend>
+          <div class="input-field">
+            <input type="email" name="emailAd" id="emailAd">
+            <label for="emailAd">email</label>
+          </div>
+          <div class="input-field">
+            <input type="password" name="passwdAd" id="passwordAd">
+            <label for="passwordAd">senha</label>
+          </div>
+          </fieldset>
+           <div class="botoes push-s2">
+            <a class="modal-close waves-effect waves-red btn-flat">cancelar</a >
+            <button type="submit" class="waves-effect waves-green btn">entrar</button>
+          </div>
+        </form> 
+      </div>
+    </div><!-- fim modal -->
+  </div>
+</div>

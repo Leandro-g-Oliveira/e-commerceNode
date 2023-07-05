@@ -1,0 +1,100 @@
+{{#if Valid}}
+{{>headerCL}}
+{{else}}
+{{>headerSL}}
+{{/if}}
+
+<div class="row container">
+  <a href="/client/cart" class="btn blue" style="margin-top:5px;">Voltar</a>
+  <h1>Entrega</h1>
+  <div class="col s12">
+    
+    {{#if verify}}
+    <form method="POST" action="/client/send">
+      {{#user}}
+      <fieldset><legend><span>Entrega</span></legend>
+      <div class="input-field">
+        <input type="text" name="nome" id="nome" value="{{nome}}" required/>
+        <label for="nome">nome</label>
+      </div>
+      <div class="input-field">
+        <input type="text" name="endereco" id="endereco" value="{{endereco}}" required/>
+        <label for="endereco">endereco</label>
+      </div>
+      <div class="city">
+        <div class="input-field">
+          <input type="text" name="bairro" id="bairro" value="{{bairro}}" required/>
+          <label for="bairro">bairro</label>
+        </div>
+        <div class="input-field">
+          <input type="text" name="cidade" id="cidade" value="{{cidade}}" required/>
+        </div>
+      </div>
+      {{/user}}
+      Valor:<p>R$ 350</p>
+      <select name="pag">
+        <option value="dinheiro">Dinheiro</option>
+        <option value="cartao">Cartão</option>
+      </select>
+      </fieldset>
+      <fieldset><legend><span>Lanches</span></legend>
+        <table>
+      {{#each cart}}
+          <tr>
+            <td>{{name}}</td>
+            <td>{{qtd}}</td>
+            <td>R$ {{value}}</td>
+            <td>{{pao}}</td>
+          </tr>
+      {{/each}}
+    </table>
+      </fieldset>
+      <button type="submit" class="btn-flat blue white-text">Enviar</button>
+    </form>
+    
+    {{else}}
+    
+    <form method="POST" action="/client/send">
+      <fieldset>
+      <div class="input-field">
+        <input type="text" name="nome" id="nome" required/>
+        <label for="nome">nome</label>
+      </div>
+      <div class="input-field">
+        <input type="text" name="endereco" id="endereco" required/>
+        <label for="endereco">endereco</label>
+      </div>
+      <div class="city">
+        <div class="input-field">
+          <input type="text" name="bairro" id="bairro" required/>
+          <label for="bairro">bairro</label>
+        </div>
+        <div class="input-field">
+          <input type="text" name="cidade" id="cidade" required/>
+          <label for="cidade">cidade</label>
+        </div>
+      </div>
+      Valor:<p>R$ 350</p>
+      <select name="pag">
+        <option value="dinheiro">Dinheiro</option>
+        <option value="cartao">Cartão</option>
+      </select>
+      </fieldset>
+      <fieldset><legend><span>Lanches</span></legend>
+        <table>
+      {{#each cart}}
+          <tr>
+            <td>{{name}}</td>
+            <td>{{qtd}}</td>
+            <td>R$ {{value}}</td>
+            <td>{{pao}}</td>
+          </tr>
+      {{/each}}
+        </table>
+      </fieldset>
+      <button type="submit" class="btn-flat blue white-text">Enviar</button>
+    </form>
+    {{/if}}
+    
+  </div>
+</div>

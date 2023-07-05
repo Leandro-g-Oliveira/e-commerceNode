@@ -1,0 +1,42 @@
+{{>headerSL}}
+<div class="container">
+  {{#each erro}}
+    <p class="red-text">{{error}}</p>
+  {{/each}}
+  <div class="row">
+    <div class="col s12">
+      <form action="/client/cadClient" method="POST">
+        <h4><span class="brown-text">Cadastrar novo cliente</span></h4>
+        <div class="input-field">
+          <input type="text" name="nome" id="nome" required>
+          <label for="nome">nome</label>
+        </div>
+        <div class="input-field">
+          <input type="email" name="email" id="email" required>
+          <label for="email">email</label>
+        </div>
+        <div class="input-field">
+          <input type="password" name="senha" id="senha" required>
+          <label for="senha">senha</label>
+        </div>
+        <div class="input-field">
+          <input type="number" name="telefone" id="telefone" required>
+          <label for="telefone">telefone com DDD</label>
+        </div>
+        <div class="input-field">
+          <input type="text" name="endereco" id="endereco" required>
+          <label for="endereco">endereço</label>
+        </div>
+        <div class="input-field">
+          <input type="text" name="bairro" id="bairro" required>
+          <label for="bairro">bairro</label>
+        </div>
+        <div class="input-field">
+          <input type="text" name="cidade" id="cidade" required>
+          <label for="cidade">cidade</label>
+        </div>
+        <button class="btn" type="submit">Cadastrar</button>
+      </form>
+    </div>
+  </div>
+</div>

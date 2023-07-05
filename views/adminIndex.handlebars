@@ -1,0 +1,113 @@
+{{>headerCL}}
+<!--nome do admin -->
+<p class="red-text">{{erro}}</p>
+<p class="red-text">{{err}}</p>
+<div class="container">
+  <h3>Olá {{user}}</h3>
+    <h3>Controle de Lanches</h3>
+    <a href="#modalAdd" class="modal-trigger btn-floating waves-effect red"><i class="material-icons">add</i></a>
+    <div class="row">
+      <div class="col s12 tabelaProd">
+      <table>
+        <thead>
+          <tr>
+            <th>Imagem</th>
+            <th>Nome</th>
+            <th>Valor</th>
+            <th>Descricao</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        {{#each data}}
+        <tbody>
+          <tr>
+            <td><img src="../img/{{path}}"></td>
+            <td>{{nome}}</td>
+            <td>{{valor}}</td>
+            <td>{{descricao}}</td>
+            <td><a href="#modalEdit{{id}}" class="modal-trigger btn-floating blue waves-effect">
+              <i class="material-icons">edit</i>
+            </a>
+            <a href="#modalDel{{id}}" class="modal-trigger btn-floating red waves-effect">
+              <i class="material-icons">delete</i>
+            </a></td>
+          </tr>
+        </tbody>
+        {{/each}}
+      </table>
+        
+        {{#each data}}
+        <div id="modalEdit{{id}}" class="modal">
+          <div class="modal-content">
+            <h4>Editar lanche</h4>
+          </div>
+          <div class="modal-footer">
+            <form method="POST" action="/admin/edit">
+              <div class="input-field">
+                <input type="hidden" name="id" value="{{id}}">
+              </div>
+              <div class="input-field">
+                <input type="text" id="nome" name="nome" value="{{nome}}" required>
+                <label for="nome">nome</label>
+              </div>
+              <div class="input-field">
+                <input type="text" id="valor" name="valor" value="{{valor}}" required>
+                <label for="valor">valor</label>
+              </div>
+              <div class="input-field">
+                <input type="text" id="desc" name="descricao" value="{{descricao}}" required>
+                <label for="desc">descrição</label>
+                </div>
+                <a href="#!" class="modal-close waves-effect waves-red btn red">cancelar</a>
+                <button type="submit" class="waves-effect btn">editar</button>
+            </form>
+          </div>
+        </div><!--fim modalEdit -->
+        <div id="modalDel{{id}}" class="modal">
+          <div class="modal-content">
+            <h4>Deseja excluir o lanche {{nome}}</h4>
+          </div>
+          <div class="modal-footer">
+            <form method="POST" action="/admin/delete">
+              <input type="hidden" value="{{id}}" name="id">
+              <a href="#!" class="modal-close waves-effect waves-red btn red">Cancelar</a>
+              <button type="submit" class="waves-effect btn">excluir</button>
+            </form>
+          </div>
+        </div>
+        {{/each}}
+      
+      <div id="modalAdd" class="modal">
+        <div class="modal-content">
+          <h4>Adicionar lanche</h4>
+        </div>
+        <div class="modal-footer">
+          <form method="POST" action="/admin/create" enctype="multipart/form-data">
+            <div class="input-field">
+              <input type="file" name="file" required>
+            </div>
+            <select name="tipo">
+              <option value="lanches">Lanches</option>
+              <option value="120g">Hambúrguer 120g</option>
+              <option value="150g">Hambúrguer 150g</option>
+            </select>
+            <div class="input-field">
+              <input type="text" name="nome" id="nome" required>
+              <label for="nome">nome</label>
+            </div>
+            <div class="input-field">
+              <input type="text" name="valor" id="valor" required>
+              <label for="valor">valor</label>
+            </div>
+            <div class="input-field">
+              <input type="text" name="descricao" id="descricao" required>
+              <label for="descricao">descrição</label>
+            </div>
+            <a href="#!" class="modal-close waves-effect waves-red btn red">Cancelar</a>
+            <button type="submit" class="btn waves-effect">Cadastrar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
