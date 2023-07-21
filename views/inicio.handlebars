@@ -6,24 +6,47 @@
 <p class="red-text">{{erro}}</p>
 <div class="row container">
   <a href="/client/cart" class="btn red btn-cart modal-trigger">🛒</a>
-  {{#each data}}
-    <div class="col s12 l8">
-      <a href="#modal{{id}}" class="modal-trigger">
-        <div class="lancheUniq grey lighten-2">
-          <img src="img/{{path}}" class="responsive-img center">
-          <h5 class="black-text">{{nome}}</h5>
-          <p class="black-text">R${{valor}}</p>
-          <p class="black-text">{{descricao}}</p>
-        </div>
-      </a>
+  <nav class="nav-extended amber darken-1">
+    <div class="nav-content">
+      <ul class="tabs tabs-transparent">
+        <li class="tab"><a href="#lanches">Lanches</a></li>
+        <li class="tab"><a href="#150g">150g</a></li>
+        <li class="tab"><a href="#120g">120g</a></li>
+      </ul>
     </div>
-    {{/each}}
-    {{#each data}}
+  </nav>
+    <div class="col s12">
+      <section id="lanches">
+        {{#each data}}
+        <a href="#modal{{id}}" class="modal-trigger">
+          <div class="lancheUniq amber darken-1">
+            <img src="img/{{path}}" class="responsive-img center">
+            <h5 class="black-text">{{nome}}</h5>
+            <p class="black-text">R${{valor}}</p>
+            <p class="black-text">{{descricao}}</p>
+          </div>
+        </a>
+        {{/each}}
+      </section>
+      
+      <section id="150g">
+      {{#each row150}}
+        <a href="#modal{{id}}" class="modal-trigger">
+          <div class="lancheUniq amber darken-1">
+            <img src="img/{{path}}" class="responsive-img center">
+            <h5 class="black-text">{{nome}}</h5>
+            <p class="black-text">R${{valor}}</p>
+            <p class="black-text">{{descricao}}</p>
+          </div>
+        </a>
+      {{/each}}
+      </section>
+    </div>
     
-    
-    <div id="modal{{id}}" class="modal">
+    {{#each rowAll}}
+    <div id="modal{{id}}" class="modal amber lighten-5">
       <div class="modal-content">
-        <div class="modalTitle blue">
+        <div class="modalTitle amber darken-1">
           <h1 class="modal-close white-text waves-effect waves-light"><i class="material-icons">arrow_back</i></h1>
           <h3 class="white-text">{{nome}}</h3>
         </div>
@@ -45,9 +68,6 @@
             <a href="#!" data-nome="{{nome}}" data-valor="{{valor}}" data-qt="1" class="addCart btn">add ao carrinho</a>
           </div>
         </div>
-        
-        
-        
       </div>
     </div>
   {{/each}}

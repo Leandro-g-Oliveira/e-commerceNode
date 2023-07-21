@@ -11,18 +11,30 @@ const conn = mysql.createConnection({
 
 class Repositories {
   allSnacks () {
-    let sql = "SELECT * FROM lanches"
+    let sql = "SELECT * FROM lanches";
+    return repo (sql,"Falha ao conectar!");
+  }
+  
+  allSnacksLanches () {
+    let sql = "SELECT * FROM lanches WHERE categoria = 1";
     return repo(sql,"Falha ao conectar!");
   }
   allSnaks150 () {
-    let sql = "SELECT * FROM 150g";
+    let sql = "SELECT * FROM lanches WHERE categoria = 2";
     return repo(sql,"Falha ao conectar!");
   }
   allSnaks120 () {
-    let sql = "SELECT * FROM 120g";
+    let sql = "SELECT * FROM lanches WHERE categoria = 3";
     return repo(sql,"Falha ao conectar!");
   }
-  
+  allCategory () {
+    let sql = "SELECT * FROM categoria";
+    return repo(sql,"falha ao buscar categoria");
+  }
+  setCategory (nome) {
+    let sql = "INSERT INTO categoria (nome) VALUES (?)";
+    return repo(sql,[nome],"Não foi possível castrar esta categoria!");
+  }
   loginClient (login, passwd) {
     let sql = `SELECT * FROM usuarios WHERE email = ? AND senha = ?`;
     return repo (sql,[login,passwd],"Usuário e/ou senha incorretos!");
@@ -62,9 +74,9 @@ class Repositories {
     return repo (sql,id,"Não foi possível remover!");
   }
   
-  addSnack (nome,valor,descricao,path,table) {
-    let sql = `INSERT INTO ${table} (nome,valor,descricao,path) VALUES (?,?,?,?)`;
-    return repo (sql,[nome,valor,descricao,path],"Não foi possível cadastrar o lanche! ");
+  addSnack (nome,valor,descricao,path,tipo) {
+    let sql = `INSERT INTO lanches (nome,valor,descricao,categoria,path) VALUES (?,?,?,?,?)`;
+    return repo (sql,[nome,valor,descricao,tipo,path],"Não foi possível cadastrar o lanche! ");
   }
   
 }//fim da classe

@@ -6,35 +6,115 @@
   <h3>Olá {{user}}</h3>
     <h3>Controle de Lanches</h3>
     <a href="#modalAdd" class="modal-trigger btn-floating waves-effect red"><i class="material-icons">add</i></a>
+    <!--nav da categoria dos lanches -->
+    <nav class="nav-extended amber darken-1">
+      <div class="nav-content">
+        <ul class="tabs tabs-transparent">
+          <li class="tab"><a href="#lanches">Lanches</a></li>
+          <li class="tab"><a href="#150g">150g</a></li>
+          <li class="tab"><a href="#120g">120g</a></li>
+          <li class="tab"><a href="#category">categorias</a></li>
+        </ul>
+      </div>
+    </nav>
+    
     <div class="row">
       <div class="col s12 tabelaProd">
-      <table>
-        <thead>
-          <tr>
-            <th>Imagem</th>
-            <th>Nome</th>
-            <th>Valor</th>
-            <th>Descricao</th>
-            <th>Ação</th>
-          </tr>
-        </thead>
-        {{#each data}}
-        <tbody>
-          <tr>
-            <td><img src="../img/{{path}}"></td>
-            <td>{{nome}}</td>
-            <td>{{valor}}</td>
-            <td>{{descricao}}</td>
-            <td><a href="#modalEdit{{id}}" class="modal-trigger btn-floating blue waves-effect">
-              <i class="material-icons">edit</i>
-            </a>
-            <a href="#modalDel{{id}}" class="modal-trigger btn-floating red waves-effect">
-              <i class="material-icons">delete</i>
-            </a></td>
-          </tr>
-        </tbody>
-        {{/each}}
-      </table>
+        <section id="lanches">
+          <table>
+            <thead>
+              <tr>
+                <th>Imagem</th>
+                <th>Nome</th>
+                <th>Valor</th>
+                <th>Descricao</th>
+                <th>Tipo</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            {{#each data}}
+            <tbody>
+              <tr>
+                <td><img src="../img/{{path}}"></td>
+                <td>{{nome}}</td>
+                <td>{{valor}}</td>
+                <td>{{descricao}}</td>
+                <td>{{categoria}}</td>
+                <td><a href="#modalEdit{{id}}" class="modal-trigger btn-floating blue waves-effect">
+                  <i class="material-icons">edit</i>
+                </a>
+                <a href="#modalDel{{id}}" class="modal-trigger btn-floating red waves-effect">
+                  <i class="material-icons">delete</i>
+                </a></td>
+              </tr>
+            </tbody>
+            {{/each}}
+          </table>
+        </section>
+        
+        <section id="150g">
+          <table>
+            <thead>
+              <tr>
+                <th>Imagem</th>
+                <th>Nome</th>
+                <th>Valor</th>
+                <th>Descricao</th>
+                <th>Tipo</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each row150}}
+              <tr>
+                <td><img src="../img/{{path}}" /></td>
+                <td>{{nome}}</td>
+                <td>{{valor}}</td>
+                <td>{{descricao}}</td>
+                <td>{{categoria}}</td>
+                <td>
+                  <a href="#modalEdit{{id}}" class="modal-trigger btn-floating blue waves-effect"><i class="material-icons">edit</i></a>
+                  <a href="#modalDel{{id}}" class="modal-trigger btn-floating blue waves-effect"><i class="material-icons">edit</i></a>
+                </td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </section>
+        
+        <section id="category">
+          <h1>Categorias</h1>
+          <a href="#modalAddCateg" class="modal-trigger btn-floating waves-effect red"><i class="material-icons">add</i></a>
+          <table>
+            <thead>
+              <tr>
+                <th>nome</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each categ}}
+              <tr>
+                <td>{{nome}}</td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </section>
+        <!--sessao de categoria-->
+        <div id="modalAddCateg" class="modal">
+          <div class="modal-content">
+            <h4>Adicionar categoria</h4>
+          </div>
+          <div class="modal-footer">
+            <form method="POST" action="/admin/createCateg">
+              <div class="input-field">
+                <input type="text" name="nomeCateg" id="nomeCateg"/>
+                <label for="nomeCateg">nome da categoria</label>
+              </div>
+              <button type="submit" class="btn amber darken-1 waves-effect">Enviar</button>
+            </form>
+          </div>
+        </div>
         
         {{#each data}}
         <div id="modalEdit{{id}}" class="modal">
@@ -87,9 +167,9 @@
               <input type="file" name="file" required>
             </div>
             <select name="tipo">
-              <option value="lanches">Lanches</option>
-              <option value="120g">Hambúrguer 120g</option>
-              <option value="150g">Hambúrguer 150g</option>
+              {{#each categ}}
+                <option value="{{id}}">{{nome}}</option>
+              {{/each}}
             </select>
             <div class="input-field">
               <input type="text" name="nome" id="nome" required>

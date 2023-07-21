@@ -12,8 +12,11 @@ class Controller {
     let Valid = false;
     let user = req.session.loginCli;
     user ? Valid=true:Valid=false;
-    let row = await Repositories.allSnacks();
-    res.render("inicio",{data:row,Valid});
+    let row = await Repositories.allSnacksLanches();
+    let rowAll = Repositories.allSnacks();
+    let row150 = await Repositories.allSnaks150();
+    let row120 = await Repositories.allSnaks120();
+    res.render("inicio",{data:row,row150,row120,rowAll,Valid});
   }
   
   carrinho (req,res) {
@@ -96,7 +99,10 @@ class Controller {
   async loginAdmin (req,res) {
     let login = req.body.emailAd;
     let senha = md5(req.body.passwdAd);
-    let row = await Repositories.allSnacks();
+    let row = await Repositories.allSnacksLanches();
+    let row150 = await Repositories.allSnaks150();
+    let row120 = await Repositories.allSnaks120();
+    let categ = await Repositories.allCategory();
     let usr = await Repositories.loginAdmin(login,senha);
     let erros = [];
     if (usr.length == 0) { 
@@ -104,29 +110,33 @@ class Controller {
       res.render("login",{erro:erros});
     } else {
       req.session.loginAd = usr[0].nome;
-      res.render("adminIndex",{user:usr[0].nome,data:row});
+      res.render("adminIndex",{user:usr[0].nome,data:row,categ,row150,row120});
     }
   }
   
    async adminIndex (req,res) {
      if (req.session.loginAd) {
-       let row = await Repositories.allSnacks();
-       let row150 = await Repositories.allSnaks150()
-       let row120 = await Repositories.allSnaks120()
+       let row = await Repositories.allSnacksLanches();
+       let row150 = await Repositories.allSnaks150();
+       let row120 = await Repositories.allSnaks120();
+       let categ = await Repositories.allCategory();
       res.render("adminIndex",{data:row,data150:row150,data120:row120});
      } else {
        let not = [{error:"Você precisa estar logado para entrar!"}];
-       let row = await Repositories.allSnacks();
+       let row = await Repositories.allSnacksLanches();
        let Valid = false;
        let user = req.session.loginAd;
        user ? Valid=true:Valid=false;
-       res.render("inicio",{data:row,erro:not[0].error,Valid});
+       res.render("inicio",{data:row,erro:not[0].error,Valid,row150,row120});
      }
   }
   
   async editSnack (req,res) {
     let {id,nome,valor,descricao} = req.body;
-    let row = await Repositories.allSnacks();
+    let row = await Repositories.allSnacksLanches();
+    let row150 = await Repositories.allSnaks150();
+     let row120 = await Repositories.allSnaks120();
+     let categ = await Repositories.allCategory();
     let rowEdit = await Repositories.editSnack(id,nome,valor,descricao)
     .catch((err)=>{
       let not = [{error:err}];
@@ -134,7 +144,7 @@ class Controller {
       res.render("adminIndex",{data:row,user:usr,erro:not[0].error});
     });
     let usr = req.session.loginAd;
-    res.render("adminIndex",{data:row,user:usr});
+    res.render("adminIndex",{data:row,user:usr,row150,row120,categ});
   }
   
   async addSnack (req,res) {
@@ -142,18 +152,32 @@ class Controller {
     let {nome,valor,descricao,tipo} = req.body;
     let usr = req.session.loginAd;
     let rowAdd = await Repositories.addSnack (nome,valor,descricao,path,tipo);
-    let row = await Repositories.allSnacks();
+    let row = await Repositories.allSnacksLanches();
     let row150 = await Repositories.allSnaks150()
     let row120 = await Repositories.allSnaks120()
-    res.render("adminIndex",{data:row,user:usr});
+    let categ = await Repositories.allCategory();
+    res.render("adminIndex",{data:row,user:usr,row150,row120,categ});
   }
   
   async delSnack (req,res) {
     let id = req.body.id;
     let rowDel = await Repositories.delSnack(id);
-    let row = await Repositories.allSnacks();
+    let row = await Repositories.allSnacksLanches();
+    let row150 = await Repositories.allSnaks150();
+    let row120 = await Repositories.allSnaks120();
+    let categ = await Repositories.allCategory();
     let usr = req.session.loginAd;
-    res.render("adminIndex",{data:row,user:usr});
+    res.render("adminIndex",{data:row,user:usr,row150,row120,categ});
+  }
+  async createCateg (req,res) {
+    let nome =  req.body.nomeCateg;
+    let rowAdd = await Repositories.setCategory(nome);
+    let row = await Repositories.allSnacksLanches();
+    let row150 = await Repositories.allSnaks150();
+    let row120 = await Repositories.allSnaks120();
+    let categ = await Repositories.allCategory();
+    let usr = req.session.loginAd;
+    res.render("adminIndex",{data:row,user:usr,categ,row150,row120});
   }
 }
 module.exports = new Controller();

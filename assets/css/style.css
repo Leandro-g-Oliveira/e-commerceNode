@@ -48,3 +48,7 @@ img{
 tr{
   outline:none;
 }
+.imgNav{
+  height:80%;
+  width: 60px;
+}
