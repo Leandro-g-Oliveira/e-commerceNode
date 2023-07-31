@@ -2,7 +2,7 @@ const express = require ("express");
 const path = require ("path");
 const multer = require ("multer");
 const router = express.Router();
-const Controller = require("../src/controller/Controller");
+const AdminController = require("../src/controller/AdminController");
 
 //multer
 const storage = multer.diskStorage({
@@ -19,11 +19,14 @@ const upload = multer({storage:storage});
 
 
 //rotas
-router.post("/loginAdmin",Controller.loginAdmin);
-router.get("/adminIndex",Controller.adminIndex);
-router.post("/create",upload.single("file"),Controller.addSnack);
-router.post("/edit",Controller.editSnack);
-router.post("/delete",Controller.delSnack);
-router.post("/createCateg",Controller.createCateg)
-
+router.post("/loginAdmin",AdminController.loginAdmin);
+router.get("/adminInit",AdminController.adminInit);
+router.get("/adminIndex",AdminController.adminIndex);
+router.post("/create",upload.single("file"),AdminController.addSnack);
+router.post("/edit",AdminController.editSnack);
+router.post("/delete",AdminController.delSnack);
+router.post("/createCateg",AdminController.createCateg);
+router.get("/adminManage",AdminController.adminManage);
+router.post("/addAdmin",AdminController.addAdmin);
+router.post("/editAdmin",AdminController.editAdmin);
 module.exports = router;

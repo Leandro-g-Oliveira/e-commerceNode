@@ -1,0 +1,80 @@
+{{>headerAd}}
+<div class="container">
+  <h3>Gerenciar admins</h3>
+  <a href="#modalAdd" class="modal-trigger btn-floating waves-effect red"><i class="material-icons">add</i></a>
+  <div class="row">
+    <div class="col s12">
+      <table>
+        <thead>
+          <tr>
+            <th>nome</th>
+            <th>email</th>
+            <th>senha</th>
+            <th>ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each users}}
+          <tr>
+            <td>{{nome}}</td>
+            <td>{{email}}</td>
+            <td>********</td>
+            <td>
+              <a href="#modalEdit{{id}}" class="modal-trigger btn-floating blue waves-effect"><i class="material-icons">edit</i></a>
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div id="modalAdd" class="modal">
+      <div id="modalad" class="modal">
+        <h4>Adicionar novo admin</h4>
+      </div>
+      <div class="modal-footer">
+        <form method="POST" action="/admin/addAdmin">
+          <div class="input-field">
+            <input type="text" name="nome" id="nome" required/>
+            <label for="nome">nome</label>
+          </div>
+          <div class="input-field">
+            <input type="email" name="email" id="email" required/>
+            <label for="email">nome</label>
+          </div>
+          <div class="input-field">
+            <input type="password" name="senha" id="senha" required/>
+            <label for="senha">senha</label>
+          </div>
+          <a href="#!" class="modal-close waves-effect waves-red btn-flat">fechar</a>
+          <button type="submit" class="waves-effect btn-flat">cadastrar</button>
+        </form>
+      </div>
+    </div>
+    {{#each users}}
+    <div id="modalEdit{{id}}" class="modal">
+      <div class="modal-content">
+        <h4>Editar admin</h4>
+      </div>
+      <div class="modal-footer">
+        <form method="POST" action="/admin/editAdmin">
+          <input type="hidden" name="id" value="{{id}}"/>
+          <div class="input-field">
+            <input type="text" name="nome" id="nome" value="{{nome}}"required/>
+            <label for="nome">nome</label>
+          </div>
+          <div class="input-field">
+            <input type="email" name="email" id="email" value="{{email}}" required/>
+            <label for="email">email</label>
+          </div>
+          <div class="input-field">
+            <input type="password" name="passwd" id="passwd" value="{{senha}}" required/>
+            <label for="passwd">senha</label>
+          </div>
+          <a href="#!" class="modal-close waves-effect waves-red btn-flat">fechar</a>
+          <button type="submit" class="waves-effect btn-flat">editar</button>
+        </form>
+      </div>
+    </div><!--fim modal edit -->
+    {{/each}}
+  </div>
+</div>

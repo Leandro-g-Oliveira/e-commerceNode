@@ -14,7 +14,10 @@ class Repositories {
     let sql = "SELECT * FROM lanches";
     return repo (sql,"Falha ao conectar!");
   }
-  
+  getSnackById (id) {
+    let sql = "SELECT * FROM lanches WHERE id = ?";
+    return repo (sql,id,"falha na conexão");
+  }
   allSnacksLanches () {
     let sql = "SELECT * FROM lanches WHERE categoria = 1";
     return repo(sql,"Falha ao conectar!");
@@ -78,7 +81,18 @@ class Repositories {
     let sql = `INSERT INTO lanches (nome,valor,descricao,categoria,path) VALUES (?,?,?,?,?)`;
     return repo (sql,[nome,valor,descricao,tipo,path],"Não foi possível cadastrar o lanche! ");
   }
-  
+  allAdmins () {
+    let sql = "SELECT * FROM admin";
+    return repo (sql,"Erro ao receber dados");
+  }
+  editAdmin (id, nome, email, senha) {
+    let sql = "UPDATE admin SET nome = ?, email = ?, senha = ? WHERE id = ?";
+    return repo (sql,[id,nome,email,senha],"Falha ao tentar editar admin");
+  }
+  addAdmin (nome,email,senha) {
+    let sql = "INSERT INTO admin(nome,email,senha) VALUES (?,?,?)";
+    return repo (sql,[nome,email,senha],"Falha ao cadastrar admin!");
+  }
 }//fim da classe
 
 

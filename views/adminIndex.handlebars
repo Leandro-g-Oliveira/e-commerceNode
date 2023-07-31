@@ -1,4 +1,4 @@
-{{>headerCL}}
+{{>headerAd}}
 <!--nome do admin -->
 <p class="red-text">{{erro}}</p>
 <p class="red-text">{{err}}</p>
@@ -74,7 +74,7 @@
                 <td>{{categoria}}</td>
                 <td>
                   <a href="#modalEdit{{id}}" class="modal-trigger btn-floating blue waves-effect"><i class="material-icons">edit</i></a>
-                  <a href="#modalDel{{id}}" class="modal-trigger btn-floating blue waves-effect"><i class="material-icons">edit</i></a>
+                  <a href="#modalDel{{id}}" class="modal-trigger btn-floating red waves-effect"><i class="material-icons">delete</i></a>
                 </td>
               </tr>
               {{/each}}
@@ -116,7 +116,7 @@
           </div>
         </div>
         
-        {{#each data}}
+        {{#each rowAll}}
         <div id="modalEdit{{id}}" class="modal">
           <div class="modal-content">
             <h4>Editar lanche</h4>
