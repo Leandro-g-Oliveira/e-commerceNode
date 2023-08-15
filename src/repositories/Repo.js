@@ -1,5 +1,5 @@
 const mysql = require("mysql");
-const port = "0.0.0.0" || "192.168.1.103";
+const port = "0.0.0.0" || "192.168.1.103" || "192.168.2.193";
 const conn = mysql.createConnection({
   "host":port,
   "port":"3306",

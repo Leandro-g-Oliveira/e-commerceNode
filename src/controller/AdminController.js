@@ -15,31 +15,51 @@ class AdminController {
     }
   }
   
-    adminInit (req, res) {
-      if (req.session.loginAd) {
-        let user = req.session.loginAd;
-        res.render("adminInit",{user});
-      } else {
-        let erro = {text:"Você precisa estar logado para entrar!"}
-        res.render("login",{erro});
-      }
-      
+  adminInit (req, res) {
+    if (req.session.loginAd) {
+      let user = req.session.loginAd;
+      res.render("adminInit",{user});
+    } else {
+      let erro = {text:"Você precisa estar logado para entrar!"}
+      res.render("login",{erro});
     }
-    async adminIndex (req,res) {
-      let row = await Repositories.allSnacksLanches();
-      let row150 = await Repositories.allSnaks150();
-      let row120 = await Repositories.allSnaks120();
+  }
+  async adminIndex (req,res) {
+    if (req.session.loginAd) {
       let rowAll = await Repositories.allSnacks();
-      let categ = await Repositories.allCategory();
-     if (req.session.loginAd) {
-      res.render("adminIndex",{data:row,row150,row120,categ,rowAll});
-     } else {
-       let erro = {text:"Você precisa estar logado para entrar!"};
-       let Valid = false;
-       let user = req.session.loginAd;
-       user ? Valid=true:Valid=false;
-       res.render("login",{erro,Valid});
-     }
+      let rowHamb = await Repositories.allSnacksHamb();
+      let rowCarne = await Repositories.allSnacksCarne();
+      let rowRefri = await Repositories.allRefri();
+      let categ = await Repositories.getCateg();
+      res.render("adminIndex",{data:rowAll,rowHamb,rowCarne,rowRefri,categ,user:req.session.loginAd});
+    } else {
+      let erro = {text:"Você precisa estar logado para entrar!"};
+      let Valid = false;
+      let user = req.session.loginAd;
+      user ? Valid=true:Valid=false;
+      res.render("login",{erro,Valid});
+    }
+  }
+  
+  async adminPedidos (req,res) {
+    if (req.session.loginAd) {
+      let pedidos = await Repositories.getPedidos();
+      res.render("pedidos",{pedidos})
+    } else {
+      let erro = {text:"Você precisa estar logado para entrar!"}
+      res.render("login",{erro});
+    }
+  }
+  
+  async deletePedido (req,res) {
+    let id = req.body.id;
+    let delPedido = await Repositories.delPedido(id)
+    .catch((err)=>{
+      let erro = {text:err};
+      res.render("adminInit",{erro,user:req.session.loginAd});
+    })
+    let pedidos = await Repositories.getPedidos();
+    res.render("pedidos",{pedidos})
   }
   
   async editSnack (req,res) {
@@ -52,56 +72,41 @@ class AdminController {
       return;
     });
     let usr = req.session.loginAd;
-    let row = await Repositories.allSnacksLanches();
     let rowAll = await Repositories.allSnacks();
-    let row150 = await Repositories.allSnaks150();
-     let row120 = await Repositories.allSnaks120();
-     let categ = await Repositories.allCategory();
-    res.render("adminIndex",{data:row,user:usr,row150,row120,rowAll,categ});
+    let rowHamb = await Repositories.allSnacksHamb();
+    let rowCarne = await Repositories.allSnacksCarne();
+    let rowRefri = await Repositories.allRefri();
+    let categ = await Repositories.getCateg();
+    res.render("adminIndex",{data:rowAll,rowHamb,rowCarne,rowRefri,categ,user:usr});
   }
   
   async addSnack (req,res) {
     let path = req.file.filename;
     let {nome,valor,descricao,tipo} = req.body;
-    let rowAdd = await Repositories.addSnack (nome,valor,descricao,path,tipo)
-    let user = req.session.loginCli;
+    let user = req.session.loginAd;
+    let rowAdd = await Repositories.addSnack (nome,valor,descricao,tipo,path)
     .catch((err)=>{
       let erro = {text:err};
       res.render("adminInit",{erro,user:req.session.loginAd});
     })
-    let row = await Repositories.allSnacksLanches();
-    let row150 = await Repositories.allSnaks150();
-    let row120 = await Repositories.allSnaks120();
     let rowAll = await Repositories.allSnacks();
-    let categ = await Repositories.allCategory();
-    res.render("adminIndex",{data:row,row150,row120,rowAll,categ,user:req.session.loginAd});
+    let rowHamb = await Repositories.allSnacksHamb();
+    let rowCarne = await Repositories.allSnacksCarne();
+    let rowRefri = await Repositories.allRefri();
+    let categ = await Repositories.getCateg();
+    res.render("adminIndex",{data:rowAll,rowHamb,rowCarne,rowRefri,categ,user:req.session.loginAd});
   }
   
   async delSnack (req,res) {
     let id = req.body.id;
     let rowDel = await Repositories.delSnack(id);
-    let row = await Repositories.allSnacksLanches();
-    let row150 = await Repositories.allSnaks150();
-    let row120 = await Repositories.allSnaks120();
     let rowAll = await Repositories.allSnacks();
-    let categ = await Repositories.allCategory();
+    let rowHamb = await Repositories.allSnacksHamb();
+    let rowCarne = await Repositories.allSnacksCarne();
+    let rowRefri = await Repositories.allRefri();
+    let categ = await Repositories.getCateg();
     let usr = req.session.loginAd;
-    res.render("adminIndex",{data:row,user:usr,row150,rowAll,row120,categ});
-  }
-  async createCateg (req,res) {
-    let nome =  req.body.nomeCateg;
-    let rowAdd = await Repositories.setCategory(nome);
-    .catch((err)=>{
-      let erro = {text:err};
-      res.render("adminInit",{erro,user:req.session.loginAd});
-    })
-    let row = await Repositories.allSnacksLanches();
-    let row150 = await Repositories.allSnaks150();
-    let row120 = await Repositories.allSnaks120();
-    let rowAll = await Repositories.allSnacks();
-    let categ = await Repositories.allCategory();
-    let usr = req.session.loginAd;
-    res.render("adminIndex",{data:row,user:usr,categ,row150,rowAll,row120});
+    res.render("adminIndex",{data:rowAll,rowHamb,rowCarne,rowRefri,categ,user:usr});
   }
   async adminManage (req,res) {
     if(req.session.loginAd) {
@@ -114,8 +119,9 @@ class AdminController {
   }
   async editAdmin (req,res) {
     let {nome, email, id} = req.body;
-    let passwd = md5(req.body.passwd);
-    let adminEdit = await Repositories.editAdmin(id, nome, email, passwd)
+    console.log(req.body);
+    let senha = md5(req.body.senha);
+    let adminEdit = await Repositories.editAdmin(id, nome, email, senha)
     .catch((err)=>{
       let erro = {text:err};
       res.render("adminInit",{erro,user:req.session.loginAd});
@@ -125,7 +131,7 @@ class AdminController {
   }
   async addAdmin (req,res) {
     let {nome,email} = req.body;
-    let senha = md5(req.body.passwd);
+    let senha = md5(req.body.senha);
     let newUser = await Repositories.addAdmin(nome,email,senha)
     .catch((err)=>{
       let erro = {text:err};

@@ -9,17 +9,17 @@
   <nav class="nav-extended fixed amber darken-1">
     <div class="nav-content">
       <ul class="tabs tabs-transparent">
-        <li class="tab"><a href="#lanches">Lanches</a></li>
-        <li class="tab"><a href="#150g">150g</a></li>
-        <li class="tab"><a href="#120g">120g</a></li>
+        <li class="tab"><a href="#hamburger">hamburger</a></li>
+        <li class="tab"><a href="#carne">carne</a></li>
+        <li class="tab"><a href="#refri">refrigerante</a></li>
       </ul>
     </div>
   </nav>
     <div class="col s12">
-      <!--lanche comum -->
-      <section id="lanches">
-        <p>Lanches Tradicionais</p>
-        {{#each data}}
+      <!--lanche hamburger -->
+      <section id="hamburger">
+        <p>Lanches de Hamburger</p>
+        {{#each rowHamb}}
         <a href="#modal{{id}}" class="modal-trigger">
           <div class="lancheUniq amber darken-1">
             <img src="img/{{path}}" class="responsive-img center">
@@ -31,10 +31,10 @@
         {{/each}}
       </section>
       
-      <!--lanche 150g -->
-      <section id="150g">
-        <p>Hamburger 150g</p>
-      {{#each row150}}
+      <!--lanche carne -->
+      <section id="carne">
+        <p>Lanches de Carne</p>
+      {{#each rowCarne}}
         <a href="#modal{{id}}" class="modal-trigger">
           <div class="lancheUniq amber darken-1">
             <img src="img/{{path}}" class="responsive-img center">
@@ -44,6 +44,21 @@
           </div>
         </a>
       {{/each}}
+      </section>
+      
+      <!-- bebidas -->
+      <section id="refri">
+        <p>Bebidas</p>
+        {{#each rowRefri}}
+        <a href="#modal{{id}}" class="modal-trigger">
+          <div class="lancheUniq amber darken-1">
+            <img src="img/{{path}}" class="responsive-img center">
+            <h5 class="black-text">{{nome}}</h5>
+            <p class="black-text">R${{valor}}</p>
+            <p class="black-text">{{descricao}}</p>
+          </div>
+        </a>
+        {{/each}}
       </section>
     </div>
     
@@ -60,7 +75,8 @@
         <div class="desc">
           <p class="black-text">{{descricao}}</p>
           <select>
-              <option selected value="Hamburger">Hamburger</option>
+              <option disabled selected>--Escolha seu pão--</option>
+              <option value="Hamburger">Hamburger</option>
               <option value="Brioche">Brioche</option>
               <option value="Francês">Francês</option>
             </select>

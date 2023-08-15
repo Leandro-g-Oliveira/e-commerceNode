@@ -52,3 +52,23 @@ tr{
   height:80%;
   width: 60px;
 }
+.pedidosUniq {
+  margin-top: 20px;
+  text-align: center;
+  padding:10px;
+}
+.valPag,.nome{
+  display: flex;
+  flex-direction: column;
+}
+.numBtn {
+  display: flex;
+  justify-content: space-around;
+}
+.sessao {
+  text-align: center;
+}
+#btnFinal {
+  padding:20px;
+  border-radius: 10px;
+}

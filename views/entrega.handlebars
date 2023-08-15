@@ -13,31 +13,43 @@
     <form method="POST" action="/client/send">
       {{#user}}
       <fieldset><legend><span>Entrega</span></legend>
-      <div class="input-field">
-        <input type="text" name="nome" id="nome" value="{{nome}}" required/>
-        <label for="nome">nome</label>
-      </div>
-      <div class="input-field">
-        <input type="text" name="endereco" id="endereco" value="{{endereco}}" required/>
-        <label for="endereco">endereco</label>
-      </div>
-      <div class="city">
-        <div class="input-field">
-          <input type="text" name="bairro" id="bairro" value="{{bairro}}" required/>
-          <label for="bairro">bairro</label>
-        </div>
-        <div class="input-field">
-          <input type="text" name="cidade" id="cidade" value="{{cidade}}" required/>
-        </div>
-      </div>
-      {{/user}}
-      Valor:<p>R$ 350</p>
-      <select name="pag">
-        <option value="dinheiro">Dinheiro</option>
-        <option value="cartao">Cartão</option>
-      </select>
-      </fieldset>
+      <div class="entrega">
+          <div class="input-field">
+            <input type="text" name="nome" id="nome" value="{{nome}}" required/>
+            <label for="nome">nome</label>
+          </div>
+          <div class="input-field">
+            <input type="text" name="endereco" id="endereco" value="{{endereco}}" required/>
+            <label for="endereco">endereco</label>
+          </div>
+          <div class="city">
+            <div class="input-field">
+              <input type="text" name="bairro" id="bairro" value="{{bairro}}" required/>
+              <label for="bairro">bairro</label>
+            </div>
+            <div class="input-field">
+              <input type="text" name="cidade" id="cidade" value="{{cidade}}" required/>
+            </div>
+          </div>
+        {{/user}}
+        </div><!-- fim divEntrega-->
+          <input type="hidden" value="{{total}}" name="total" />
+          <select name="pag">
+            <option disabled selected>--Forma de pagamento--</option>
+            <option value="dinheiro">Dinheiro</option>
+            <option value="cartao">Cartão</option>
+          </select>
+        </fieldset>
+      
+      <button id="btnEntrega" class="btn-flat waves-effect ">Entregar</button>
       <fieldset><legend><span>Lanches</span></legend>
+      <div class="total">
+        Valor:<p>{{total}}</p>
+        <div>
+          <p>4 reais entrega</p>
+          <input type="hidden" name="entrega" value="4"/>
+        </div>
+      </div>
         <table>
       {{#each cart}}
           <tr>
@@ -49,6 +61,7 @@
       {{/each}}
     </table>
       </fieldset>
+      <input type="hidden" value="{{total}}" name="total" />
       <button type="submit" class="btn-flat blue white-text">Enviar</button>
     </form>
     
@@ -56,33 +69,44 @@
     
     <form method="POST" action="/client/send">
       <fieldset>
-      <div class="input-field">
-        <input type="text" name="nome" id="nome" required/>
-        <label for="nome">nome</label>
-      </div>
-      <div class="input-field">
-        <input type="text" name="endereco" id="endereco" required/>
-        <label for="endereco">endereco</label>
-      </div>
-      <div class="city">
+      <div class="entrega">
         <div class="input-field">
-          <input type="text" name="bairro" id="bairro" required/>
-          <label for="bairro">bairro</label>
+          <input type="text" name="nome" id="nome" required/>
+          <label for="nome">nome</label>
         </div>
         <div class="input-field">
-          <input type="text" name="cidade" id="cidade" required/>
-          <label for="cidade">cidade</label>
+          <input type="text" name="endereco" id="endereco" required/>
+          <label for="endereco">endereco</label>
         </div>
-      </div>
-      Valor:<p>R$ 350</p>
+        <div class="city">
+          <div class="input-field">
+            <input type="text" name="bairro" id="bairro" required/>
+            <label for="bairro">bairro</label>
+          </div>
+          <div class="input-field">
+            <input type="text" name="cidade" id="cidade" required/>
+            <label for="cidade">cidade</label>
+          </div>
+        </div>
+      </div> <!-- fim divEntrega-->
+      <input type="hidden" value="{{total}}" name="total" />
       <select name="pag">
+        <option disabled selected>--Forma de pagamento--</option>
         <option value="dinheiro">Dinheiro</option>
         <option value="cartao">Cartão</option>
       </select>
       </fieldset>
+      <button id="btnEntrega" class="btn-flat waves-effect ">Entregar</button>
       <fieldset><legend><span>Lanches</span></legend>
-        <table>
+      <div class="total">
+        Valor:<p>R$ {{total}}</p>
+        <div>
+          <p>4 reais entrega</p>
+          <input type="hidden" name="entrega" value="4"/>
+        </div>
+      </div>
       {{#each cart}}
+        </table>
           <tr>
             <td>{{name}}</td>
             <td>{{qtd}}</td>
@@ -95,6 +119,6 @@
       <button type="submit" class="btn-flat blue white-text">Enviar</button>
     </form>
     {{/if}}
-    
   </div>
 </div>
+<script src="/js/send.js" type="module"></script>

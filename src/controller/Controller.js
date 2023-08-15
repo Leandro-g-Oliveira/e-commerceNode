@@ -12,11 +12,12 @@ class Controller {
     let Valid = false;
     let user = req.session.loginCli;
     user ? Valid=true:Valid=false;
-    let row = await Repositories.allSnacksLanches();
     let rowAll = await Repositories.allSnacks();
-    let row150 = await Repositories.allSnaks150();
-    let row120 = await Repositories.allSnaks120();
-    res.render("inicio",{rowAll,data:row,row150,row120,Valid});
+    let rowHamb = await Repositories.allSnacksHamb();
+    let rowCarne = await Repositories.allSnacksCarne();
+    let rowRefri = await Repositories.allRefri();
+    
+    res.render("inicio",{rowAll,rowHamb,rowCarne,rowRefri,Valid});
   }
   
   carrinho (req,res) {
@@ -40,13 +41,30 @@ class Controller {
     let user = req.session.loginCli;
     let verify;
     let cart = req.session.carte;
+    var total = 0;
+    for(let i in cart) {
+      total += cart[i].qtd * cart[i].valUnit;
+    }
     (user?verify=true:verify=false);
-    res.render("entrega",{user,verify,cart});
+    res.render("entrega",{user,verify,cart,total});
   }
   
-  send (req,res) {
-    let {nome,endereco,bairro,cidade,pag} = req.body;
-    console.log(`${nome},${endereco},${bairro},${cidade},${pag}`);
+  async send (req,res) {
+    let {nome,endereco,bairro,cidade,pag,total,entrega} = req.body;
+    let lanches = req.session.carte;
+    let pedido = lanches.map((val)=>{
+        return `${val.qtd} ${val.name}, com pão ${val.pao}`;
+      }).join(" - ");
+    
+    if (endereco!= undefined && bairro!=undefined && cidade!= undefined && entrega!= undefined) {
+      let entregar = await Repositories.enviarPedido (pedido,total,pag,"entrega",nome,endereco,bairro,cidade)
+      req.session.destroy();
+      res.render("final");
+    } else {
+      let entregar = await Repositories.enviarPedido (pedido,total,pag,"Buscar no local",nome,"","","")
+      req.session.destroy();
+      res.render("final");
+    }
   }
   
   loginPage (req,res) {

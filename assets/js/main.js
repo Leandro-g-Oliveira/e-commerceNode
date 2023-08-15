@@ -35,7 +35,8 @@ btnEnviar.forEach((val)=>{
     let nome = event.target.getAttribute("data-nome");
     let unit = event.target.getAttribute("data-valor");
     let qt = event.target.getAttribute("data-qt");
-    let valor = parseFloat(unit) * parseInt(qt);
+    let total = parseFloat(unit) * parseInt(qt);
+    let valor = total.toFixed(2);
     
     fetch("/",{
       method:'POST',

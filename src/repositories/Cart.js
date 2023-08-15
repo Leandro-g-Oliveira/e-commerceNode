@@ -25,14 +25,12 @@ class Cart {
   addQtd (name,op,unit,pao) {
     let keyPao = this.cart.filter(val => val.name == name && val.pao == pao);
     let key = this.cart.findIndex((val)=>val == keyPao[0]);
-    //let key = this.cart.findIndex((val)=>val.name==name);
     this.cart[key].qtd++;
     this.cart[key].value += parseFloat(unit);
   }
   rmQtd (name,op,unit,pao) {
     let keyPao = this.cart.filter(val => val.name == name && val.pao == pao);
     let key = this.cart.findIndex((val)=>val == keyPao[0]);
-    //let key = this.cart.findIndex((val)=>val.name==name);
     if (this.cart[key].qtd > 1) {
       this.cart[key].qtd--;
       this.cart[key].value -= parseFloat(unit);

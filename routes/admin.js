@@ -25,8 +25,9 @@ router.get("/adminIndex",AdminController.adminIndex);
 router.post("/create",upload.single("file"),AdminController.addSnack);
 router.post("/edit",AdminController.editSnack);
 router.post("/delete",AdminController.delSnack);
-router.post("/createCateg",AdminController.createCateg);
 router.get("/adminManage",AdminController.adminManage);
 router.post("/addAdmin",AdminController.addAdmin);
 router.post("/editAdmin",AdminController.editAdmin);
+router.get("/pedidos",AdminController.adminPedidos);
+router.post("/deletePedido",AdminController.deletePedido)
 module.exports = router;

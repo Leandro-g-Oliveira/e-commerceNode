@@ -1,0 +1,47 @@
+{{>headerAd}}
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      {{#each pedidos}}
+      <article class="pedidosUniq grey lighten-5">
+        <div class="numBtn">
+          <a href="#modal{{id}}" class="btnDelete modal-trigger btn-floating white waves-effect waves-red">❌</a>
+          <p>Pedido n° <strong>{{id}}</strong></p>
+        </div>
+        
+        <p>{{pedido}}</p><br/>
+        <div class="valPag">
+          <p>Valor: <strong>R$ {{valor}}</strong></p>
+          <p>pagamento: <strong>{{pagamento}}</strong></p>
+        </div>
+        <div class="nome">
+          <p>forma: <strong>{{tipo}}</strong></p>
+          <p>nome: <strong>{{nome}}</strong></p>
+        </div>
+        <div class="endereco">
+          <h3>endereço</h3>
+          <p>{{endereco}}</p>
+          <p>{{bairro}}</p>
+          <p>{{cidade}}</p>
+        </div>
+      </article>
+      {{/each}}
+    </div>
+    {{#each pedidos}}
+    <div id="modal{{id}}" class="modal">
+      <div class="modal-content">
+        <h3>Deletar pedido {{id}}?</h3>
+        <p>{{pedido}}</p>
+      </div>
+      <div class="modal-footer">
+        <form method="POST" action="/admin/deletePedido">
+          <input type="hidden" name="id" value="{{id}}" />
+          <a href="#!" class="modal-close waves-effect waves-red btn">cancelar</a>
+          <button type="submit" class="waves-effect btn">deletar</button>
+        </form>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
+<script src="/js/pedido.js"></script>

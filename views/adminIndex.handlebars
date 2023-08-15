@@ -10,17 +10,16 @@
     <nav class="nav-extended amber darken-1">
       <div class="nav-content">
         <ul class="tabs tabs-transparent">
-          <li class="tab"><a href="#lanches">Lanches</a></li>
-          <li class="tab"><a href="#150g">150g</a></li>
-          <li class="tab"><a href="#120g">120g</a></li>
-          <li class="tab"><a href="#category">categorias</a></li>
+          <li class="tab"><a href="#hamburger">hamburger</a></li>
+          <li class="tab"><a href="#carne">carne</a></li>
+          <li class="tab"><a href="#refri">refrigerante</a></li>
         </ul>
       </div>
     </nav>
     
     <div class="row">
       <div class="col s12 tabelaProd">
-        <section id="lanches">
+        <section id="hamburger">
           <table>
             <thead>
               <tr>
@@ -32,7 +31,7 @@
                 <th>Ação</th>
               </tr>
             </thead>
-            {{#each data}}
+            {{#each rowHamb}}
             <tbody>
               <tr>
                 <td><img src="../img/{{path}}"></td>
@@ -52,20 +51,20 @@
           </table>
         </section>
         
-        <section id="150g">
+        <section id="carne">
           <table>
             <thead>
               <tr>
                 <th>Imagem</th>
                 <th>Nome</th>
                 <th>Valor</th>
-                <th>Descricao</th>
+                <th>Descrição</th>
                 <th>Tipo</th>
                 <th>Ação</th>
               </tr>
             </thead>
             <tbody>
-              {{#each row150}}
+              {{#each rowCarne}}
               <tr>
                 <td><img src="../img/{{path}}" /></td>
                 <td>{{nome}}</td>
@@ -82,39 +81,35 @@
           </table>
         </section>
         
-        <section id="category">
-          <h1>Categorias</h1>
-          <a href="#modalAddCateg" class="modal-trigger btn-floating waves-effect red"><i class="material-icons">add</i></a>
+        <section id="refri">
           <table>
             <thead>
               <tr>
-                <th>nome</th>
+                <th>Imagem</th>
+                <th>Nome</th>
+                <th>Valor</th>
+                <th>descrição</th>
+                <th>Tipo</th>
+                <th>Ação</th>
               </tr>
             </thead>
             <tbody>
-              {{#each categ}}
+              {{#each rowRefri}}
               <tr>
+                <td><img src="../img/{{path}}" /></td>
                 <td>{{nome}}</td>
+                <td>{{valor}}</td>
+                <td>{{descricao}}</td>
+                <td>{{categoria}}</td>
+                <td>
+                  <a href="#modalEdit{{id}}" class="modal-trigger btn-floating blue waves-effect"><i class="material-icons">edit</i></a>
+                  <a href="#modalDel{{id}}" class="modal-trigger btn-floating red waves-effect"><i class="material-icons">delete</i></a>
+                </td>
               </tr>
               {{/each}}
             </tbody>
           </table>
         </section>
-        <!--sessao de categoria-->
-        <div id="modalAddCateg" class="modal">
-          <div class="modal-content">
-            <h4>Adicionar categoria</h4>
-          </div>
-          <div class="modal-footer">
-            <form method="POST" action="/admin/createCateg">
-              <div class="input-field">
-                <input type="text" name="nomeCateg" id="nomeCateg"/>
-                <label for="nomeCateg">nome da categoria</label>
-              </div>
-              <button type="submit" class="btn amber darken-1 waves-effect">Enviar</button>
-            </form>
-          </div>
-        </div>
         
         {{#each rowAll}}
         <div id="modalEdit{{id}}" class="modal">
@@ -167,6 +162,7 @@
               <input type="file" name="file" required>
             </div>
             <select name="tipo">
+              <option disabled selected>--escolha a categoria--</option>
               {{#each categ}}
                 <option value="{{id}}">{{nome}}</option>
               {{/each}}

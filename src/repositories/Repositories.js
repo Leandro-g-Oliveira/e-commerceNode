@@ -1,6 +1,6 @@
 const mysql = require("mysql");
 const repo = require("./repo");
-const port = "0.0.0.0" || "192.168.1.103";
+const port = "0.0.0.0" || "192.168.1.103" || "192.168.2.193";
 const conn = mysql.createConnection({
   "host":port,
   "port":"3306",
@@ -14,29 +14,21 @@ class Repositories {
     let sql = "SELECT * FROM lanches";
     return repo (sql,"Falha ao conectar!");
   }
-  getSnackById (id) {
-    let sql = "SELECT * FROM lanches WHERE id = ?";
-    return repo (sql,id,"falha na conexão");
+  allSnacksHamb () {
+    let sql = "SELECT * FROM lanches WHERE categoria = 4";
+    return repo (sql,"Falha ao conectar!");
   }
-  allSnacksLanches () {
-    let sql = "SELECT * FROM lanches WHERE categoria = 1";
-    return repo(sql,"Falha ao conectar!");
+  allSnacksCarne () {
+    let sql = "SELECT * FROM lanches WHERE categoria = 5";
+    return repo (sql,"Falha ao conectar!");
   }
-  allSnaks150 () {
-    let sql = "SELECT * FROM lanches WHERE categoria = 2";
-    return repo(sql,"Falha ao conectar!");
+  allRefri () {
+    let sql = "SELECT * FROM lanches WHERE categoria = 6";
+    return repo (sql,"Falha ao conectar!");
   }
-  allSnaks120 () {
-    let sql = "SELECT * FROM lanches WHERE categoria = 3";
-    return repo(sql,"Falha ao conectar!");
-  }
-  allCategory () {
+  getCateg () {
     let sql = "SELECT * FROM categoria";
-    return repo(sql,"falha ao buscar categoria");
-  }
-  setCategory (nome) {
-    let sql = "INSERT INTO categoria (nome) VALUES (?)";
-    return repo(sql,[nome],"Não foi possível castrar esta categoria!");
+    return repo (sql,"Falha na conexão");
   }
   loginClient (login, passwd) {
     let sql = `SELECT * FROM usuarios WHERE email = ? AND senha = ?`;
@@ -77,7 +69,7 @@ class Repositories {
     return repo (sql,id,"Não foi possível remover!");
   }
   
-  addSnack (nome,valor,descricao,path,tipo) {
+  addSnack (nome,valor,descricao,tipo,path) {
     let sql = `INSERT INTO lanches (nome,valor,descricao,categoria,path) VALUES (?,?,?,?,?)`;
     return repo (sql,[nome,valor,descricao,tipo,path],"Não foi possível cadastrar o lanche! ");
   }
@@ -87,11 +79,23 @@ class Repositories {
   }
   editAdmin (id, nome, email, senha) {
     let sql = "UPDATE admin SET nome = ?, email = ?, senha = ? WHERE id = ?";
-    return repo (sql,[id,nome,email,senha],"Falha ao tentar editar admin");
+    return repo (sql,[nome,email,senha,id],"Falha ao tentar editar admin");
   }
   addAdmin (nome,email,senha) {
     let sql = "INSERT INTO admin(nome,email,senha) VALUES (?,?,?)";
     return repo (sql,[nome,email,senha],"Falha ao cadastrar admin!");
+  }
+  enviarPedido (pedido,valor,pagamento,tipo,nome,endereco,bairro,cidade) {
+    let sql = "INSERT INTO pedidos (pedido,valor,pagamento,tipo,nome,endereco,bairro,cidade) VALUES(?,?,?,?,?,?,?,?)";
+    return repo (sql,[pedido,valor,pagamento,tipo,nome,endereco,bairro,cidade],"Falha ao finalizar pedido!");
+  }
+  getPedidos () {
+    let sql = "SELECT * FROM pedidos";
+    return repo (sql,"Falha ao conectar!");
+  }
+  delPedido (id) {
+    let sql = "DELETE FROM pedidos WHERE id = ?";
+    return repo (sql,[id],"Não foi possível deletar o pedido!");
   }
 }//fim da classe
 
