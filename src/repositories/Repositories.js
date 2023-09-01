@@ -1,13 +1,21 @@
 const mysql = require("mysql");
 const repo = require("./repo");
 const port = "0.0.0.0" || "192.168.1.103" || "192.168.2.193";
-const conn = mysql.createConnection({
+const conn = mysql.createPool({
+  "host":"db4free.net",
+  "port":"3306",
+  "user":"leandrooliveira",
+  "password":"BolachaDeAbacaxi",
+  "database":"lanchonetebrasa"
+});
+
+/*const conn = mysql.createPool({
   "host":port,
   "port":"3306",
   "user":"root",
   "password":"root",
   "database":"lanchonete"
-});
+});*/
 
 class Repositories {
   allSnacks () {
