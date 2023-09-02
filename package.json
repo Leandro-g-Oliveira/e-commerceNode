@@ -5,8 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"nodemon app.js",
-    "vercel-build":"npx prisma migrate deploy"
+    "dev":"node app.js"
   },
   "author": "Leandro",
   "license": "ISC",
