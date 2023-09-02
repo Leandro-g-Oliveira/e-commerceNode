@@ -4,9 +4,9 @@ const exphb = require("express-handlebars");
 const helmet = require("helmet");
 const session = require ("express-session");
 const port = process.env.PORT || 3001;
-const admin = require ("./routes/admin")
-const client = require ("./routes/client")
-const Controller = require("./src/controller/Controller");
+const admin = require ("./routes/admin.js")
+const client = require ("./routes/client.js")
+const Controller = require("./src/controller/Controller.js");
 const app = express();
 
 //config

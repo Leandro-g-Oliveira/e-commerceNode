@@ -1,5 +1,5 @@
 const md5 = require ("md5");
-const Repositories = require ("../repositories/Repositories");
+const Repositories = require ("../repositories/Repositories.js");
 
 class AdminController {
   async loginAdmin (req,res) {

@@ -1,6 +1,6 @@
 const md5 = require ("md5");
-const Repositories = require ("../repositories/Repositories");
-const Cart = require("../repositories/Cart");
+const Repositories = require ("../repositories/Repositories.js");
+const Cart = require("../repositories/Cart.js");
 
 class Controller {
   async clientStart (req,res) {

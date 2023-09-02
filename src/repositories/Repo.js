@@ -26,11 +26,6 @@ const consult = (sql, values="",msgReject) => {
         return resolve(row);
       });
     }); //endQuery
-    /*conn.query(sql,values,(erro,result)=>{
-      if (erro) return reject(msgReject);
-      let row = JSON.parse(JSON.stringify(result));
-      return resolve (row);
-    });*/
   });//endPromise
 }
 module.exports = consult;
